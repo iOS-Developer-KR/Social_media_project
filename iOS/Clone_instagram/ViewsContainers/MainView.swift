@@ -15,65 +15,63 @@ struct MainView: View {
     @State private var linePressed = false
     var body: some View {
         
-            NavigationStack(path: $path) {
+        NavigationStack(path: $path) {
+            
+            TabView(selection: $tabselection) {
                 
-                TabView(selection: $tabselection) {
-                    
-                    PostedView()
-                        .tabItem {
-                            Image(systemName: "house.fill")
-                        }.toolbarBackground(Color.tabBar, for: .tabBar)
-                        .tag(1)
-                    
-                    SearchVideoView()
-                        .tabItem {
-                            Image(systemName: "magnifyingglass")
-                        }.toolbarBackground(Color.tabBar, for: .tabBar)
-                        .tag(2)
-                    
-                    Text("")
-                        .tabItem {
-                            Image(systemName: "plus.square")
-                        }.tag(3)
-                    
-                    ReelsView()
-                        .tabItem {
-                            Image(systemName: "play.rectangle")
-                        }.toolbarBackground(Color.tabBar, for: .tabBar)
-                        .tag(4)
-                    
-                    ProfileView()
-                        .tabItem {
-                            Image(systemName: "person.circle")
-                        }.toolbarBackground(Color.tabBar, for: .tabBar)
-                        .tag(5)
-
-                    
-                }
-                .navigationDestination(for: String.self) { num in
-                    if num == "1" {
-                        SelectingImage(path: $path)
-                    }
-                }
+                PostedView()
+                    .tabItem {
+                        Image(systemName: "house.fill")
+                    }.toolbarBackground(Color.tabBar, for: .tabBar)
+                    .tag(1)
                 
-            }//NAVIGATION
-            .onChange(of: tabselection) {
-                if tabselection == 3 {
-                    tabselection = 1
-                    print("추가:\(path.count)")
-                    path.append("1")
-                    print("추가후:\(path.count)")
-                }
+                SearchVideoView()
+                    .tabItem {
+                        Image(systemName: "magnifyingglass")
+                    }.toolbarBackground(Color.tabBar, for: .tabBar)
+                    .tag(2)
+                
+                Text("")
+                    .tabItem {
+                        Image(systemName: "plus.square")
+                    }.tag(3)
+                
+                ReelsView()
+                    .tabItem {
+                        Image(systemName: "play.rectangle")
+                    }.toolbarBackground(Color.tabBar, for: .tabBar)
+                    .tag(4)
+                
+                ProfileView()
+                    .tabItem {
+                        Image(systemName: "person.circle")
+                    }.toolbarBackground(Color.tabBar, for: .tabBar)
+                    .tag(5)
+                
+                
             }
-            .onChange(of: path) {
-                pressed.toggle()
+            .navigationDestination(isPresented: $plusPressed) {
+                SelectingImage(path: $path)
             }
-            .onAppear {
-                Task {
-                    let credential = try KeyChain.get()
-                    print(credential)
-                }
+            
+        }//NAVIGATION
+        .onChange(of: tabselection) {
+            if tabselection == 3 {
+                tabselection = 1
+                path.append("1")
+                print("추가한 후:\(path.count)")
+                plusPressed.toggle()
             }
+        }
+        .onChange(of: path) {
+            pressed.toggle()
+        }
+        .onAppear {
+            Task {
+                let credential = try KeyChain.get()
+                print(credential)
+            }
+        }
     }
 }
 

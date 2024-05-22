@@ -47,7 +47,11 @@ struct PostingView: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
                         model.send(image: selected, text: textfield) // 이미지와 글 전송
-                        path.removeAll() // 처음으로 돌아가기
+//                        path.removeLast()
+                        print(path.count)
+                        
+                        dismiss()
+                        //                        path = .init() // 처음으로 돌아가기
                     }, label: {
                         Text("공유")
                             .foregroundStyle(Color.accentColor)
@@ -55,11 +59,12 @@ struct PostingView: View {
                     })
                 }
             }
+            
         })
         
     }
 }
 
 #Preview {
-    PostingView(selected: .constant(UIImage(named: "nopicture")!), path: .constant(["1"]))
+    PostingView(selected: .constant(UIImage(named: "nopicture")!), path: .constant(.init()))
 }

@@ -51,7 +51,6 @@
 		2BBD3C032B5BA13800264256 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD3C022B5BA13800264256 /* SettingViewModel.swift */; };
 		2BBD3C052B5BFCB200264256 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBD3C042B5BFCB200264256 /* SettingView.swift */; };
 		2BC791D22B3C090800AA76FF /* PostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC791D12B3C090800AA76FF /* PostingView.swift */; };
-		2BCD4CB62B37375D008866A0 /* ImageFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BCD4CB52B37375D008866A0 /* ImageFilterView.swift */; };
 		2BD0A5602B2E0EDA00C478FB /* UserNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD0A55F2B2E0EDA00C478FB /* UserNameView.swift */; };
 		2BD0A5622B2F208B00C478FB /* PhoneNumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD0A5612B2F208B00C478FB /* PhoneNumView.swift */; };
 		2BD0A5642B2F246C00C478FB /* PhoneNumValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD0A5632B2F246C00C478FB /* PhoneNumValidation.swift */; };
@@ -131,7 +130,6 @@
 		2BBD3C022B5BA13800264256 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		2BBD3C042B5BFCB200264256 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		2BC791D12B3C090800AA76FF /* PostingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostingView.swift; sourceTree = "<group>"; };
-		2BCD4CB52B37375D008866A0 /* ImageFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFilterView.swift; sourceTree = "<group>"; };
 		2BD0A55E2B2E0E5D00C478FB /* Clone-instagram-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Clone-instagram-Info.plist"; sourceTree = SOURCE_ROOT; };
 		2BD0A55F2B2E0EDA00C478FB /* UserNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNameView.swift; sourceTree = "<group>"; };
 		2BD0A5612B2F208B00C478FB /* PhoneNumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumView.swift; sourceTree = "<group>"; };
@@ -345,7 +343,6 @@
 			isa = PBXGroup;
 			children = (
 				2BF873B22B318FCC00565F9D /* SelectingImage.swift */,
-				2BCD4CB52B37375D008866A0 /* ImageFilterView.swift */,
 				2BC791D12B3C090800AA76FF /* PostingView.swift */,
 			);
 			path = PostingViews;
@@ -547,7 +544,6 @@
 				2BBD3BF12B5AC01400264256 /* ProfileHeaderView.swift in Sources */,
 				2B553F1D2B3F13660095F66E /* Constants.swift in Sources */,
 				2BAAC18A2B355439006651E5 /* PhotoViewModel.swift in Sources */,
-				2BCD4CB62B37375D008866A0 /* ImageFilterView.swift in Sources */,
 				2BBD3BEF2B5ABF0100264256 /* ProfileMediaSelectionView.swift in Sources */,
 				2B0C01F42B2C4B1C00C21E19 /* PostedView.swift in Sources */,
 				2B8F91C82B2A14100015A6D8 /* ContentView.swift in Sources */,

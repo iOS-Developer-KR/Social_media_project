@@ -54,14 +54,14 @@ struct Clone_instagramApp: App {
     }
     var body: some Scene {
         WindowGroup {
-            if let views = isLogged.isLogged {
-                if views {
+//            if let views = isLogged.isLogged {
+//                if views {
                     MainView()
-                } else {
-                    LoginView()
-                    
-                }
-            }
+//                } else {
+//                    LoginView()
+//                    
+//                }
+//            }
         }
         .environmentObject(isLogged)
         .environmentObject(userinfo)

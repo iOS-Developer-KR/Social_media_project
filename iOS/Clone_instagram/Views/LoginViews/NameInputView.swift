@@ -55,10 +55,6 @@ struct NameInputView: View {
                 
                 Spacer()
                 
-                Button(action: { path.removeAll()
-                }, label: {
-                    Text("Button")
-                })
             } //VSTACK
             .onChange(of: userid) {
                 register.model.nickname = userid

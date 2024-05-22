@@ -30,27 +30,29 @@ struct SelectingImage: View {
         
         let fetchOptions = PHFetchOptions()
         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-        let result = PHAsset.fetchAssets(with: .image, options: fetchOptions)
-        
-        if let firstAsset = result.firstObject {
-            let imageManager = PHImageManager.default()
-            let targetSize = CGSize(width: 1000, height: 1000)
+        Task {
+            let result = PHAsset.fetchAssets(with: .image, options: fetchOptions)
             
-            imageManager.requestImage(for: firstAsset,
-                                      targetSize: targetSize,
-                                      contentMode: .aspectFill,
-                                      options: nil) { (image, _) in
-                if let image = image {
-                    // 이미지를 가져왔을 때
-                    picture = image
-                } else {
-                    // 이미지를 가져오는 데 실패했을 때
-                    print("Failed to load image")
+            if let firstAsset = result.firstObject {
+                let imageManager = PHImageManager.default()
+                let targetSize = CGSize(width: 1000, height: 1000)
+                
+                imageManager.requestImage(for: firstAsset,
+                                          targetSize: targetSize,
+                                          contentMode: .aspectFill,
+                                          options: nil) { (image, _) in
+                    if let image = image {
+                        // 이미지를 가져왔을 때
+                        picture = image
+                    } else {
+                        // 이미지를 가져오는 데 실패했을 때
+                        print("Failed to load image")
+                    }
                 }
+            } else {
+                // 앨범에 이미지가 없을 때
+                print("No images found in the album")
             }
-        } else {
-            // 앨범에 이미지가 없을 때
-            print("No images found in the album")
         }
     }
     
@@ -101,61 +103,58 @@ struct SelectingImage: View {
     
     var body: some View {
         GeometryReader(content: { geometry in
-            NavigationStack(path: $path) {
+            VStack {
+                
+                Image(uiImage: picture)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: geometry.size.height/2)
+                    .offset(x: offset.width, y: offset.height)
+                    .scaleEffect(scale)
+                
+                Spacer()
+                
                 VStack {
-                    
-                    Image(uiImage: picture)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: geometry.size.height/2)
-                        .offset(x: offset.width, y: offset.height)
-                        .scaleEffect(scale)
-                    
-                    Spacer()
-                    
-                    VStack {
-                        PhotosPicker(selection: $selected, matching: .images, photoLibrary: .shared()) { Text("Select a photo") }
-                            .interactiveDismissDisabled()
-                            .photosPickerStyle(.inline)
-                            .photosPickerDisabledCapabilities(.sensitivityAnalysisIntervention)
-                            .photosPickerAccessoryVisibility(.hidden)
+                    PhotosPicker(selection: $selected, matching: .images, photoLibrary: .shared()) { Text("Select a photo") }
+                        .interactiveDismissDisabled()
+                        .photosPickerStyle(.inline)
+                        .photosPickerDisabledCapabilities(.sensitivityAnalysisIntervention)
+                        .photosPickerAccessoryVisibility(.hidden)
+                }
+            }
+            .onAppear(perform: {
+                loadFirstPhoto()
+            })
+            .onChange(of: selected, initial: false) { old, item in
+                Task(priority: .background) {
+                    if let data = try? await item?.loadTransferable(type: Data.self) {
+                        resetScale()
+                        picture = UIImage(data: data)!
                     }
                 }
-                .onAppear(perform: {
-                    loadFirstPhoto()
-                })
-                .onChange(of: selected, initial: false) { old, item in
-                    Task(priority: .background) {
-                        if let data = try? await item?.loadTransferable(type: Data.self) {
-                            resetScale()
-                            picture = UIImage(data: data)!
-                        }
-                    }
-                }
-                .navigationTitle("새 게시물")
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        NavigationLink {
-                            PostingView(selected: $picture, path: $path)
-                        } label: {
-                            Text("다음")
-                        }
-                        
+            }
+            .navigationTitle("새 게시물")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    NavigationLink {
+                        PostingView(selected: $picture, path: $path)
+                    } label: {
+                        Text("다음")
                     }
                 }
             }
             
         })
         .onAppear(perform: {
-            print("hi")
+            print(path.count)
         })
     }
 }
 
 
 #Preview {
-    SelectingImage(path: .constant(["1","2"]))
+    SelectingImage(path: .constant(.init()))
 }
 //import SwiftUI
 //import PhotosUI

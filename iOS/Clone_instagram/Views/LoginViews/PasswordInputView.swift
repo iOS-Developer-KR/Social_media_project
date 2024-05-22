@@ -9,7 +9,6 @@ import SwiftUI
 
 struct PasswordInputView: View {
     
-//    @Environment(RegisterModel.self) private var userinfo
     @EnvironmentObject var register: RegisterViewModel
     @Binding var path: [String]
     @State private var password = ""
@@ -42,7 +41,6 @@ struct PasswordInputView: View {
                     .padding(.horizontal)
                 
                 Button(action: {
-//                    userinfo.viewPath.append("PasswordInputView")
                     pressed.toggle()
                 }, label: {
                     Text("다음")
@@ -57,10 +55,6 @@ struct PasswordInputView: View {
                 
                 Spacer()
                 
-                Button(action: { path.removeAll()
-                }, label: {
-                    Text("Button")
-                })
             } //VSTACK
             .onChange(of: password) {
                 register.model.password = password
@@ -70,7 +64,7 @@ struct PasswordInputView: View {
     }
 }
 
-//#Preview {
-//    PasswordInputView()
-//        .environmentObject(RegisterViewModel())
-//}
+#Preview {
+    PasswordInputView(path: .constant([]))
+        .environmentObject(RegisterViewModel())
+}
